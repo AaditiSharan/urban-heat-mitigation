@@ -1,0 +1,37 @@
+[
+  {
+    "material": "Conventional Asphalt",
+    "albedo": 0.08,
+    "surface_temp": 62.3,
+    "cost_inr_m2": 450,
+    "durability": "7-10 years"
+  },
+  {
+    "material": "Cool Pavement Coating",
+    "albedo": 0.35,
+    "surface_temp": 48.1,
+    "cost_inr_m2": 680,
+    "durability": "5-8 years"
+  },
+  {
+    "material": "High-Albedo Roof Paint",
+    "albedo": 0.7,
+    "surface_temp": 42.4,
+    "cost_inr_m2": 320,
+    "durability": "3-5 years"
+  },
+  {
+    "material": "Cool Roof Membrane",
+    "albedo": 0.65,
+    "surface_temp": 44.0,
+    "cost_inr_m2": 550,
+    "durability": "10-15 years"
+  },
+  {
+    "material": "Permeable Green Pavers",
+    "albedo": 0.28,
+    "surface_temp": 51.2,
+    "cost_inr_m2": 820,
+    "durability": "8-12 years"
+  }
+]

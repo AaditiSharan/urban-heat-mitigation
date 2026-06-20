@@ -1,0 +1,90 @@
+[
+  {
+    "neighborhood": "Central Delhi",
+    "zone_id": "central_delhi",
+    "heat_risk_index": 10.0,
+    "population_exposed": 31245,
+    "priority_score": 85,
+    "recommended_strategy": "High Albedo Paint",
+    "expected_delta_t": 4.8,
+    "estimated_cost_inr": 2880000000,
+    "within_budget": false
+  },
+  {
+    "neighborhood": "Karol Bagh",
+    "zone_id": "karol_bagh",
+    "heat_risk_index": 9.6,
+    "population_exposed": 28400,
+    "priority_score": 81,
+    "recommended_strategy": "High Albedo Paint",
+    "expected_delta_t": 4.9,
+    "estimated_cost_inr": 2000000000,
+    "within_budget": false
+  },
+  {
+    "neighborhood": "Rohini",
+    "zone_id": "rohini",
+    "heat_risk_index": 7.9,
+    "population_exposed": 35600,
+    "priority_score": 81,
+    "recommended_strategy": "High Albedo Paint",
+    "expected_delta_t": 5.2,
+    "estimated_cost_inr": 3680000000,
+    "within_budget": false
+  },
+  {
+    "neighborhood": "Dwarka",
+    "zone_id": "dwarka",
+    "heat_risk_index": 7.9,
+    "population_exposed": 29800,
+    "priority_score": 77,
+    "recommended_strategy": "High Albedo Paint",
+    "expected_delta_t": 5.2,
+    "estimated_cost_inr": 2440000000,
+    "within_budget": false
+  },
+  {
+    "neighborhood": "Mayur Vihar",
+    "zone_id": "mayur_vihar",
+    "heat_risk_index": 7.7,
+    "population_exposed": 26500,
+    "priority_score": 73,
+    "recommended_strategy": "High Albedo Paint",
+    "expected_delta_t": 5.0,
+    "estimated_cost_inr": 2340000000,
+    "within_budget": false
+  },
+  {
+    "neighborhood": "Saket",
+    "zone_id": "saket",
+    "heat_risk_index": 8.1,
+    "population_exposed": 22100,
+    "priority_score": 71,
+    "recommended_strategy": "High Albedo Paint",
+    "expected_delta_t": 5.1,
+    "estimated_cost_inr": 2020000000,
+    "within_budget": false
+  },
+  {
+    "neighborhood": "Najafgarh",
+    "zone_id": "najafgarh",
+    "heat_risk_index": 8.0,
+    "population_exposed": 18700,
+    "priority_score": 68,
+    "recommended_strategy": "High Albedo Paint",
+    "expected_delta_t": 5.2,
+    "estimated_cost_inr": 2400000000,
+    "within_budget": false
+  },
+  {
+    "neighborhood": "Yamuna Fringe",
+    "zone_id": "yamuna_fringe",
+    "heat_risk_index": 6.8,
+    "population_exposed": 9200,
+    "priority_score": 55,
+    "recommended_strategy": "High Albedo Paint",
+    "expected_delta_t": 5.1,
+    "estimated_cost_inr": 1840000000,
+    "within_budget": false
+  }
+]

@@ -1,0 +1,13 @@
+{
+  "city": "Delhi NCT",
+  "study_date": "2024-05-22",
+  "data_source": "Synthetic demo grid (replace with Landsat 8 / Sentinel-2 GEE export)",
+  "bbox": {
+    "min_lon": 76.83,
+    "min_lat": 28.4,
+    "max_lon": 77.35,
+    "max_lat": 28.88
+  },
+  "grid_resolution_m": 250,
+  "cell_count": 49648
+}

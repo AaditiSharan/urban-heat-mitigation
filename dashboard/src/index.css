@@ -1,0 +1,260 @@
+:root {
+  color-scheme: dark;
+  font-family: Inter, Segoe UI, system-ui, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  color: #e8eef7;
+  background: #0b1220;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  margin: 0;
+  min-height: 100%;
+}
+
+body {
+  background: radial-gradient(circle at top, #132035 0%, #0b1220 45%, #070b14 100%);
+}
+
+button {
+  font: inherit;
+}
+
+.app-shell {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  min-height: 100vh;
+}
+
+.sidebar {
+  background: rgba(8, 14, 26, 0.95);
+  border-right: 1px solid rgba(255, 255, 255, 0.06);
+  padding: 24px 16px;
+}
+
+.brand {
+  padding: 0 8px 24px;
+}
+
+.brand h1 {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.brand p {
+  margin: 6px 0 0;
+  color: #8ea0bb;
+  font-size: 0.82rem;
+}
+
+.nav-item {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 14px;
+  margin-bottom: 6px;
+  border: none;
+  border-radius: 12px;
+  background: transparent;
+  color: #9db0cb;
+  cursor: pointer;
+  text-align: left;
+}
+
+.nav-item.active,
+.nav-item:hover {
+  background: rgba(56, 189, 248, 0.12);
+  color: #dff5ff;
+}
+
+.main-panel {
+  padding: 20px;
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.page-header h2 {
+  margin: 0;
+  font-size: 1.35rem;
+}
+
+.page-header span {
+  color: #8ea0bb;
+  font-size: 0.9rem;
+}
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 1.45fr 0.95fr;
+  gap: 16px;
+}
+
+.card {
+  background: rgba(13, 22, 38, 0.92);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 18px;
+  padding: 16px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+}
+
+.card h3 {
+  margin: 0 0 12px;
+  font-size: 0.98rem;
+}
+
+.map-card {
+  min-height: 520px;
+  display: flex;
+  flex-direction: column;
+}
+
+.map-wrapper {
+  flex: 1;
+  min-height: 460px;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.right-stack {
+  display: grid;
+  gap: 16px;
+}
+
+.insights-card {
+  min-height: 220px;
+}
+
+.insights-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.brain-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(135deg, #0ea5e9, #2563eb);
+  box-shadow: 0 0 24px rgba(14, 165, 233, 0.35);
+}
+
+.insights-card ul {
+  margin: 0;
+  padding-left: 18px;
+  color: #c7d5ea;
+}
+
+.insights-card li {
+  margin-bottom: 8px;
+}
+
+.bottom-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-top: 16px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.86rem;
+}
+
+th,
+td {
+  padding: 10px 8px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  text-align: left;
+}
+
+th {
+  color: #8ea0bb;
+  font-weight: 600;
+}
+
+.risk-bar {
+  height: 8px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+}
+
+.risk-bar > span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #f59e0b, #ef4444);
+}
+
+.legend {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 10px;
+  color: #8ea0bb;
+  font-size: 0.78rem;
+}
+
+.legend-bar {
+  flex: 1;
+  height: 10px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #2563eb, #06b6d4, #84cc16, #facc15, #ef4444);
+}
+
+.scenario-toggle {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.scenario-toggle button {
+  padding: 8px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.04);
+  color: #c7d5ea;
+  cursor: pointer;
+}
+
+.scenario-toggle button.active {
+  background: rgba(14, 165, 233, 0.18);
+  border-color: rgba(14, 165, 233, 0.45);
+  color: #dff5ff;
+}
+
+.placeholder-view {
+  min-height: 420px;
+  display: grid;
+  place-items: center;
+  color: #8ea0bb;
+}
+
+@media (max-width: 1100px) {
+  .app-shell {
+    grid-template-columns: 1fr;
+  }
+
+  .dashboard-grid,
+  .bottom-grid {
+    grid-template-columns: 1fr;
+  }
+}

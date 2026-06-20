@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Delhi Urban Heat Mitigation</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <div id="app" class="app-shell">
+      <aside class="sidebar">
+        <div class="brand">
+          <h1>Delhi Heat AI</h1>
+          <p>Urban heat stress mitigation</p>
+        </div>
+        <button class="nav-item active">Overview</button>
+        <button class="nav-item">Heat Maps</button>
+        <button class="nav-item">Materials</button>
+        <button class="nav-item">Analysis</button>
+      </aside>
+      <main class="main-panel">
+        <div class="page-header">
+          <div>
+            <h2>Urban Heat Mitigation Dashboard</h2>
+            <span id="subtitle">Loading...</span>
+          </div>
+        </div>
+        <div class="dashboard-grid">
+          <section class="card map-card">
+            <h3>Urban Heat Map (Surface Temperature)</h3>
+            <div id="map" class="map-wrapper"></div>
+            <div class="legend">
+              <span>38°C</span>
+              <div class="legend-bar"></div>
+              <span>58°C</span>
+            </div>
+            <div class="scenario-toggle">
+              <button id="baselineBtn" class="active">Baseline LST</button>
+              <button id="scenarioBtn">After Cool Roofs</button>
+            </div>
+            <div id="zoneLabels" class="zone-labels"></div>
+          </section>
+          <section class="right-stack">
+            <div class="card insights-card">
+              <div class="insights-header">
+                <div class="brain-icon">🧠</div>
+                <div>
+                  <h3>AIML Insights</h3>
+                  <span class="muted">Physics-informed ML analysis</span>
+                </div>
+              </div>
+              <ul id="insightsList"></ul>
+              <p id="modelMetrics" class="muted"></p>
+            </div>
+            <div class="card">
+              <h3>Cooling Potential by Strategy</h3>
+              <div id="chart" class="chart"></div>
+            </div>
+          </section>
+        </div>
+        <div class="bottom-grid">
+          <div class="card">
+            <h3>Material Performance Comparison</h3>
+            <table id="materialsTable"></table>
+          </div>
+          <div class="card">
+            <h3>Neighborhood Prioritization</h3>
+            <table id="priorityTable"></table>
+          </div>
+        </div>
+      </main>
+    </div>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="./app.js"></script>
+  </body>
+</html>

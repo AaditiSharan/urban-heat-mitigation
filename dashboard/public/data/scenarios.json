@@ -1,0 +1,32 @@
+[
+  {
+    "strategy_id": "high_albedo_paint",
+    "strategy": "High Albedo Paint",
+    "delta_t": 5.1,
+    "max_delta_t": 5.7
+  },
+  {
+    "strategy_id": "cool_pavements",
+    "strategy": "Cool Pavements",
+    "delta_t": 4.0,
+    "max_delta_t": 4.6
+  },
+  {
+    "strategy_id": "cool_roofs",
+    "strategy": "Cool Roofs",
+    "delta_t": 3.9,
+    "max_delta_t": 4.5
+  },
+  {
+    "strategy_id": "urban_greening",
+    "strategy": "Urban Greening",
+    "delta_t": 3.9,
+    "max_delta_t": 4.5
+  },
+  {
+    "strategy_id": "green_roofs",
+    "strategy": "Green Roofs",
+    "delta_t": 3.9,
+    "max_delta_t": 4.5
+  }
+]

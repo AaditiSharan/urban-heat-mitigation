@@ -1,0 +1,6 @@
+{
+  "r2": 0.778,
+  "rmse_c": 0.81,
+  "mae_c": 0.65,
+  "validation": "Spatial hold-out (north vs south Delhi)"
+}
