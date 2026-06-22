@@ -1,58 +1,74 @@
 {
   "central_delhi": {
     "name": "Central Delhi",
-    "low_albedo": 0.04,
-    "low_vegetation": 0.11,
-    "high_impervious": 0.62,
-    "built_up_intensity": 0.15
+    "low_albedo": 0.0,
+    "low_vegetation": 0.0,
+    "high_impervious": 0.0,
+    "built_up_intensity": 0.0,
+    "urban_canyon_effect": 0.0,
+    "thermal_mass": 0.0
   },
   "karol_bagh": {
     "name": "Karol Bagh",
-    "low_albedo": 0.06,
-    "low_vegetation": 0.12,
-    "high_impervious": 0.62,
-    "built_up_intensity": 0.13
+    "low_albedo": 0.0,
+    "low_vegetation": 0.0,
+    "high_impervious": 0.0,
+    "built_up_intensity": 0.0,
+    "urban_canyon_effect": 0.0,
+    "thermal_mass": 0.0
   },
   "rohini": {
     "name": "Rohini",
-    "low_albedo": 0.37,
-    "low_vegetation": 0.28,
-    "high_impervious": 0.1,
-    "built_up_intensity": 0.1
+    "low_albedo": 0.0,
+    "low_vegetation": 0.0,
+    "high_impervious": 0.0,
+    "built_up_intensity": 0.0,
+    "urban_canyon_effect": 0.0,
+    "thermal_mass": 0.0
   },
   "dwarka": {
     "name": "Dwarka",
-    "low_albedo": 0.38,
-    "low_vegetation": 0.29,
-    "high_impervious": 0.1,
-    "built_up_intensity": 0.09
+    "low_albedo": 0.0,
+    "low_vegetation": 0.0,
+    "high_impervious": 0.0,
+    "built_up_intensity": 0.0,
+    "urban_canyon_effect": 0.0,
+    "thermal_mass": 0.0
   },
   "mayur_vihar": {
     "name": "Mayur Vihar",
-    "low_albedo": 0.21,
-    "low_vegetation": 0.23,
-    "high_impervious": 0.18,
-    "built_up_intensity": 0.08
+    "low_albedo": 0.0,
+    "low_vegetation": 0.0,
+    "high_impervious": 0.0,
+    "built_up_intensity": 0.0,
+    "urban_canyon_effect": 0.0,
+    "thermal_mass": 0.0
   },
   "saket": {
     "name": "Saket",
-    "low_albedo": 0.29,
-    "low_vegetation": 0.28,
-    "high_impervious": 0.19,
-    "built_up_intensity": 0.09
+    "low_albedo": 0.0,
+    "low_vegetation": 0.0,
+    "high_impervious": 0.0,
+    "built_up_intensity": 0.0,
+    "urban_canyon_effect": 0.0,
+    "thermal_mass": 0.0
   },
   "najafgarh": {
     "name": "Najafgarh",
-    "low_albedo": 0.4,
-    "low_vegetation": 0.27,
-    "high_impervious": 0.1,
-    "built_up_intensity": 0.09
+    "low_albedo": 0.0,
+    "low_vegetation": 0.0,
+    "high_impervious": 0.0,
+    "built_up_intensity": 0.0,
+    "urban_canyon_effect": 0.0,
+    "thermal_mass": 0.0
   },
   "yamuna_fringe": {
     "name": "Yamuna Fringe",
-    "low_albedo": 0.13,
-    "low_vegetation": 0.28,
-    "high_impervious": 0.23,
-    "built_up_intensity": 0.05
+    "low_albedo": 0.0,
+    "low_vegetation": 0.0,
+    "high_impervious": 0.0,
+    "built_up_intensity": 0.0,
+    "urban_canyon_effect": 0.0,
+    "thermal_mass": 0.0
   }
 }

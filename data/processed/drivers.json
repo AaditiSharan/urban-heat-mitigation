@@ -1,24 +1,24 @@
 {
   "global_drivers": [
     {
-      "feature": "Low albedo surfaces",
-      "contribution": 0.262
-    },
-    {
-      "feature": "Impervious surfaces",
-      "contribution": 0.258
-    },
-    {
       "feature": "Low vegetation",
-      "contribution": 0.241
-    },
-    {
-      "feature": "Distance from water",
-      "contribution": 0.128
+      "contribution": NaN
     },
     {
       "feature": "Built-up intensity",
-      "contribution": 0.079
+      "contribution": NaN
+    },
+    {
+      "feature": "Impervious surfaces",
+      "contribution": NaN
+    },
+    {
+      "feature": "Low albedo surfaces",
+      "contribution": NaN
+    },
+    {
+      "feature": "Building density",
+      "contribution": NaN
     }
   ]
 }

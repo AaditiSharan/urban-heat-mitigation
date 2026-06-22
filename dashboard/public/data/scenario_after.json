@@ -1,50 +1,50 @@
 {
   "central_delhi": {
     "name": "Central Delhi",
-    "baseline_lst": 63.6,
-    "after_lst": 60.0,
-    "delta_t": 3.6
+    "baseline_lst": 0.0,
+    "after_lst": 30,
+    "delta_t": 3.1
   },
   "karol_bagh": {
     "name": "Karol Bagh",
-    "baseline_lst": 61.1,
-    "after_lst": 57.4,
-    "delta_t": 3.7
+    "baseline_lst": 0.0,
+    "after_lst": 30,
+    "delta_t": 3.1
   },
   "rohini": {
     "name": "Rohini",
-    "baseline_lst": 57.1,
-    "after_lst": 53.1,
-    "delta_t": 4.0
+    "baseline_lst": 0.0,
+    "after_lst": 30,
+    "delta_t": 3.1
   },
   "dwarka": {
     "name": "Dwarka",
-    "baseline_lst": 57.0,
-    "after_lst": 53.0,
-    "delta_t": 4.0
+    "baseline_lst": 0.0,
+    "after_lst": 30,
+    "delta_t": 3.1
   },
   "mayur_vihar": {
     "name": "Mayur Vihar",
-    "baseline_lst": 56.5,
-    "after_lst": 52.7,
-    "delta_t": 3.8
+    "baseline_lst": 0.0,
+    "after_lst": 30,
+    "delta_t": 3.1
   },
   "saket": {
     "name": "Saket",
-    "baseline_lst": 57.5,
-    "after_lst": 53.6,
-    "delta_t": 3.9
+    "baseline_lst": 0.0,
+    "after_lst": 30,
+    "delta_t": 3.1
   },
   "najafgarh": {
     "name": "Najafgarh",
-    "baseline_lst": 57.1,
-    "after_lst": 53.1,
-    "delta_t": 4.0
+    "baseline_lst": 0.0,
+    "after_lst": 30,
+    "delta_t": 3.1
   },
   "yamuna_fringe": {
     "name": "Yamuna Fringe",
-    "baseline_lst": 54.3,
-    "after_lst": 50.4,
-    "delta_t": 3.9
+    "baseline_lst": 0.0,
+    "after_lst": 30,
+    "delta_t": 3.1
   }
 }

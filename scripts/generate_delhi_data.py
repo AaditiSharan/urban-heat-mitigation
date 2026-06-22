@@ -22,6 +22,7 @@ from config import (
     DELHI_BBOX,
     GRID_RES_DEG,
     ZONES,
+    FEATURE_COLUMNS,
 )
 
 
@@ -59,6 +60,7 @@ def build_grid() -> pd.DataFrame:
     rng = np.random.default_rng(42)
     study_air_temp = 38.5
     study_wind = 2.8
+    study_humidity = 35.0
 
     cp_lat, cp_lon = 28.6315, 77.2167
 
@@ -87,15 +89,43 @@ def build_grid() -> pd.DataFrame:
                 albedo = 0.13 + rng.normal(0, 0.02)
             albedo = float(np.clip(albedo, 0.05, 0.30))
 
-            # Physics-inspired LST with UHI hotspot
+            # New urban morphology features
+            building_height = 10 + building_density * 25 + rng.normal(0, 3)  # 10-35m
+            building_height = float(np.clip(building_height, 5, 50))
+            
+            sky_view_factor = np.exp(-0.15 * building_density * (building_height / 10))
+            sky_view_factor = float(np.clip(sky_view_factor + rng.normal(0, 0.05), 0.15, 0.95))
+            
+            street_width = 8 + (1 - building_density) * 20 + rng.normal(0, 3)  # 8-28m
+            street_width = float(np.clip(street_width, 5, 35))
+            
+            ghsl_built_up = float(np.clip(0.9 * np.exp(-dist_cp / 4000) + rng.normal(0, 0.05), 0.1, 0.95))
+            
+            population_density = ghsl_built_up * 250 + rng.normal(0, 20)
+            population_density = float(max(10, population_density))
+            
+            thermal_anisotropy = 0.1 + (1 - sky_view_factor) * 0.3 + (building_height / 50) * 0.2
+            thermal_anisotropy = float(np.clip(thermal_anisotropy + rng.normal(0, 0.05), 0.1, 0.8))
+            
+            # Meteorological features with spatial variation
+            uhi_effect = 3.0 * np.exp(-dist_cp / 6000)
+            local_air_temp = study_air_temp + uhi_effect + rng.normal(0, 0.5)
+            local_humidity = study_humidity - uhi_effect * 2 + rng.normal(0, 3)
+            local_wind = study_wind * (1 - 0.3 * np.exp(-dist_cp / 4000)) + rng.normal(0, 0.3)
+
+            # Physics-inspired LST with UHI hotspot and new features
             lst = (
-                study_air_temp
+                local_air_temp
                 + 22 * (1 - albedo)
                 - 16 * ndvi
                 + 9 * impervious
                 + 6 * building_density
                 - 4 * water_cooling
-                - 0.7 * study_wind
+                - 0.7 * local_wind
+                + 5 * (1 - sky_view_factor)  # Urban canyon effect
+                + 0.15 * building_height  # Thermal mass
+                - 0.05 * local_humidity  # Humidity effect
+                + 2 * thermal_anisotropy  # Thermal anisotropy
                 + rng.normal(0, 0.8)
             )
             lst = float(np.clip(lst, 34, 64))
@@ -115,8 +145,15 @@ def build_grid() -> pd.DataFrame:
                     "albedo": round(albedo, 4),
                     "building_density": round(building_density, 4),
                     "dist_water_m": round(dist_water, 1),
-                    "wind": study_wind,
-                    "air_temp": study_air_temp,
+                    "wind": round(local_wind, 2),
+                    "air_temp": round(local_air_temp, 2),
+                    "humidity": round(local_humidity, 2),
+                    "sky_view_factor": round(sky_view_factor, 4),
+                    "building_height_m": round(building_height, 2),
+                    "street_width_m": round(street_width, 2),
+                    "ghsl_built_up": round(ghsl_built_up, 4),
+                    "population_density": round(population_density, 2),
+                    "thermal_anisotropy": round(thermal_anisotropy, 4),
                     "pop": pop,
                     "zone_id": zone_id or "unassigned",
                 }

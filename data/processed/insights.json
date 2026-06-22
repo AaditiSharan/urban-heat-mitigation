@@ -1,20 +1,20 @@
 {
   "title": "AIML Insights",
-  "drivers": "High surface temperatures in Delhi are primarily driven by low albedo surfaces and impervious surfaces across built-up cores.",
+  "drivers": "High surface temperatures in Delhi are primarily driven by low vegetation and built-up intensity across built-up cores.",
   "priority_zones": [
+    "Rohini",
     "Central Delhi",
-    "Karol Bagh",
-    "Rohini"
+    "Dwarka"
   ],
   "impact_estimates": {
     "cool_pavements": "8-14 C surface reduction in dense markets",
     "cool_roofs": "2-4 C indoor reduction, up to 12 C surface locally"
   },
-  "recommendation": "Deploy high albedo paint in Central Delhi and Karol Bagh first to capture up to 5.1 C average surface cooling.",
+  "recommendation": "Deploy high albedo paint in Central Delhi and Karol Bagh first to capture up to 4.3 C average surface cooling.",
   "model_metrics": {
-    "r2": 0.778,
-    "rmse_c": 0.81,
-    "mae_c": 0.65,
+    "r2": 1.0,
+    "rmse_c": 0.0,
+    "mae_c": 0.0,
     "validation": "Spatial hold-out (north vs south Delhi)"
   }
 }

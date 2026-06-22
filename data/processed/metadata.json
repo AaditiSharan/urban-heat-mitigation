@@ -9,5 +9,46 @@
     "max_lat": 28.88
   },
   "grid_resolution_m": 250,
-  "cell_count": 49648
+  "cell_count": 49648,
+  "data_sources": {
+    "remote_sensing": [
+      "Landsat 8",
+      "ECOSTRESS",
+      "Sentinel-2"
+    ],
+    "meteorological": [
+      "ERA5 (reanalysis)",
+      "CPCB (optional)"
+    ],
+    "urban_form": [
+      "OpenStreetMap",
+      "GHSL",
+      "UT-GLOBUS (optional)"
+    ]
+  },
+  "features": [
+    "system:index",
+    "ALBEDO",
+    "LST",
+    "LST_ECO",
+    "LST_L8",
+    "LULC",
+    "NDBI",
+    "NDBI_S2",
+    "NDVI",
+    "NDVI_S2",
+    ".geo",
+    "lon",
+    "lat",
+    "air_temp",
+    "humidity",
+    "wind",
+    "ghsl_built_up",
+    "population_density",
+    "thermal_anisotropy",
+    "sky_view_factor",
+    "building_height_m",
+    "street_width_m",
+    "building_density"
+  ]
 }

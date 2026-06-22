@@ -25,6 +25,13 @@ FEATURE_COLUMNS = [
     "dist_water_m",
     "wind",
     "air_temp",
+    "humidity",
+    "sky_view_factor",
+    "building_height_m",
+    "street_width_m",
+    "ghsl_built_up",
+    "population_density",
+    "thermal_anisotropy",
 ]
 
 ZONES = [
@@ -141,3 +148,82 @@ COST_PER_M2 = {
 }
 
 DEFAULT_BUDGET_INR = 50_000_000  # 5 crore demo budget (50M INR)
+
+# Data source configurations
+DATA_SOURCES = {
+    "remote_sensing": {
+        "landsat8": {
+            "collection": "LANDSAT/LC08/C02/T1_L2",
+            "lst_band": "ST_B10",
+            "resolution_m": 30,
+        },
+        "ecostress": {
+            "collection": "NASA/ECOSTRESS/LST/L2",
+            "lst_band": "LST",
+            "resolution_m": 70,
+        },
+        "sentinel2": {
+            "collection": "COPERNICUS/S2_SR_HARMONIZED",
+            "resolution_m": 10,
+        },
+    },
+    "meteorological": {
+        "era5": {
+            "variables": ["2m_temperature", "2m_dewpoint_temperature", "10m_u_component_of_wind", "10m_v_component_of_wind"],
+            "resolution_deg": 0.25,
+        },
+        "cpcb": {
+            "base_url": "https://cpcb.nic.in/",
+            "parameters": ["temperature", "humidity", "wind_speed", "wind_direction"],
+        },
+    },
+    "urban_form": {
+        "osm": {
+            "features": ["buildings", "roads", "water", "landuse"],
+        },
+        "ghsl": {
+            "resolution_m": 250,
+            "layers": ["built_up", "population"],
+        },
+        "ut_globus": {
+            "resolution_m": 100,
+            "available": False,  # Set to True if UT-GLOBUS data is accessible
+        },
+    },
+}
+
+# ERA5 data processing parameters
+ERA5_CONFIG = {
+    "pressure_levels": [1000, 925, 850, 700, 500],
+    "time_range": "2024-05-15/2024-05-30",
+    "area": [28.88, 76.83, 28.40, 77.35],  # North, West, South, East
+}
+
+# OpenStreetMap extraction parameters
+OSM_CONFIG = {
+    "network_type": "all",
+    "buffer_m": 5000,
+    "building_tags": ["building", "building:levels", "height"],
+    "road_tags": ["highway", "width"],
+}
+
+# Physics-informed modeling parameters
+PHYSICS_CONFIG = {
+    "stefan_boltzmann": 5.67e-8,  # W/m²/K⁴
+    "latent_heat_vaporization": 2.45e6,  # J/kg
+    "specific_heat_air": 1005,  # J/kg/K
+    "anthropogenic_heat_baseline": 50,  # W/m² for dense urban areas
+}
+
+# SOLWEIG integration (optional)
+SOLWEIG_CONFIG = {
+    "enabled": False,
+    "sky_view_factor_resolution": 1,  # meters
+    "wall_height_resolution": 1,  # meters
+}
+
+# InVEST integration (optional)
+INVEST_CONFIG = {
+    "enabled": False,
+    "models": ["urban_cooling_model", "carbon_sequestration"],
+}

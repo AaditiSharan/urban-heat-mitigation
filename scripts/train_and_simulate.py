@@ -30,13 +30,53 @@ from config import (
 
 
 def physics_lst(df: pd.DataFrame) -> np.ndarray:
-    return (
-        df["air_temp"].values
-        + 35 * (1 - df["albedo"].values)
-        - 18 * df["ndvi"].values
-        + 8 * df["impervious"].values
-        - 0.8 * df["wind"].values
+    """
+    Physics-informed LST calculation incorporating urban morphology and meteorological factors.
+    Enhanced with sky view factor, building height, humidity, and thermal anisotropy.
+    """
+    # Base surface temperature from air temperature
+    base_temp = df["air_temp"].values
+    
+    # Surface energy balance components
+    # Solar radiation absorption (albedo effect)
+    solar_heating = 35 * (1 - df["albedo"].values)
+    
+    # Evapotranspiration cooling (vegetation effect)
+    et_cooling = 18 * df["ndvi"].values
+    
+    # Anthropogenic heat and thermal mass (impervious surfaces)
+    anthropogenic = 8 * df["impervious"].values
+    
+    # Wind cooling effect
+    wind_cooling = 0.8 * df["wind"].values
+    
+    # Urban canyon effect (sky view factor)
+    # Lower SVF traps more heat
+    canyon_effect = 5 * (1 - df.get("sky_view_factor", 0.5).values)
+    
+    # Building height effect (thermal mass)
+    building_effect = 0.15 * df.get("building_height_m", 15).values
+    
+    # Humidity effect (moist air reduces diurnal range)
+    humidity_effect = -0.05 * df.get("humidity", 35).values
+    
+    # Thermal anisotropy (directional temperature variation)
+    anisotropy_effect = 2 * df.get("thermal_anisotropy", 0.3).values
+    
+    # Combined physics model
+    lst = (
+        base_temp
+        + solar_heating
+        - et_cooling
+        + anthropogenic
+        - wind_cooling
+        + canyon_effect
+        + building_effect
+        + humidity_effect
+        + anisotropy_effect
     )
+    
+    return lst
 
 
 def train_model(df: pd.DataFrame) -> tuple[XGBRegressor, dict]:
@@ -84,6 +124,13 @@ def driver_importance(model: XGBRegressor, df: pd.DataFrame) -> dict:
         "dist_water_m": "Distance from water",
         "wind": "Wind exposure",
         "air_temp": "Air temperature",
+        "humidity": "Relative humidity",
+        "sky_view_factor": "Sky view factor (urban canyon)",
+        "building_height_m": "Building height (thermal mass)",
+        "street_width_m": "Street width (ventilation)",
+        "ghsl_built_up": "GHSL built-up density",
+        "population_density": "Population density",
+        "thermal_anisotropy": "Thermal anisotropy",
     }
     ranked = sorted(
         [
@@ -107,12 +154,34 @@ def drivers_by_zone(df: pd.DataFrame, model: XGBRegressor) -> dict:
         shap_values = explainer.shap_values(sample)
         mean_abs = np.abs(shap_values).mean(axis=0)
         total = mean_abs.sum() if mean_abs.sum() else 1
+        
+        # Map feature indices to driver names
+        feature_map = {
+            0: "low_vegetation",
+            1: "built_up_intensity", 
+            2: "high_impervious",
+            3: "low_albedo",
+            4: "building_density",
+            5: "dist_water",
+            6: "wind_exposure",
+            7: "air_temp",
+            8: "humidity",
+            9: "sky_view_factor",
+            10: "building_height",
+            11: "street_width",
+            12: "ghsl_built_up",
+            13: "population_density",
+            14: "thermal_anisotropy",
+        }
+        
         zone_drivers[zone["id"]] = {
             "name": zone["name"],
-            "low_albedo": round(float(mean_abs[3] / total), 2),
-            "low_vegetation": round(float(mean_abs[0] / total), 2),
-            "high_impervious": round(float(mean_abs[2] / total), 2),
-            "built_up_intensity": round(float(mean_abs[1] / total), 2),
+            "low_albedo": round(float(mean_abs[3] / total), 2) if len(mean_abs) > 3 else 0,
+            "low_vegetation": round(float(mean_abs[0] / total), 2) if len(mean_abs) > 0 else 0,
+            "high_impervious": round(float(mean_abs[2] / total), 2) if len(mean_abs) > 2 else 0,
+            "built_up_intensity": round(float(mean_abs[1] / total), 2) if len(mean_abs) > 1 else 0,
+            "urban_canyon_effect": round(float(mean_abs[9] / total), 2) if len(mean_abs) > 9 else 0,
+            "thermal_mass": round(float(mean_abs[10] / total), 2) if len(mean_abs) > 10 else 0,
         }
     return zone_drivers
 
@@ -314,7 +383,10 @@ def main() -> None:
 
     print("Model metrics:", metrics)
     print("Top scenario:", scenarios[0])
-    print("Top priority zone:", priority[0]["neighborhood"])
+    if priority:
+        print("Top priority zone:", priority[0]["neighborhood"])
+    else:
+        print("No zones found - all cells may be unassigned")
 
 
 if __name__ == "__main__":
