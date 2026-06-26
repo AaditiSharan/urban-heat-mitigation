@@ -1,7 +1,7 @@
 {
   "city": "Delhi NCT",
   "study_date": "2024-05-22",
-  "data_source": "Synthetic demo grid (replace with Landsat 8 / Sentinel-2 GEE export)",
+  "data_source": "Landsat 8 + Sentinel-2 via Microsoft Planetary Computer (2024-05-15 to 2024-05-30)",
   "bbox": {
     "min_lon": 76.83,
     "min_lat": 28.4,
@@ -9,46 +9,11 @@
     "max_lat": 28.88
   },
   "grid_resolution_m": 250,
-  "cell_count": 49648,
-  "data_sources": {
-    "remote_sensing": [
-      "Landsat 8",
-      "ECOSTRESS",
-      "Sentinel-2"
-    ],
-    "meteorological": [
-      "ERA5 (reanalysis)",
-      "CPCB (optional)"
-    ],
-    "urban_form": [
-      "OpenStreetMap",
-      "GHSL",
-      "UT-GLOBUS (optional)"
-    ]
+  "cell_count": 38470,
+  "satellite_layers": {
+    "lst": "Landsat 8 Collection 2 L2 (ST_B10)",
+    "ndvi": "Sentinel-2 (B8/B4) with Landsat 8 fallback",
+    "ndbi": "Sentinel-2 (B11/B8) with Landsat 8 fallback"
   },
-  "features": [
-    "system:index",
-    "ALBEDO",
-    "LST",
-    "LST_ECO",
-    "LST_L8",
-    "LULC",
-    "NDBI",
-    "NDBI_S2",
-    "NDVI",
-    "NDVI_S2",
-    ".geo",
-    "lon",
-    "lat",
-    "air_temp",
-    "humidity",
-    "wind",
-    "ghsl_built_up",
-    "population_density",
-    "thermal_anisotropy",
-    "sky_view_factor",
-    "building_height_m",
-    "street_width_m",
-    "building_density"
-  ]
+  "study_window_days": 7
 }

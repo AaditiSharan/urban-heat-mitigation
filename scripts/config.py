@@ -39,49 +39,49 @@ ZONES = [
         "id": "central_delhi",
         "name": "Central Delhi",
         "center": (28.6315, 77.2167),
-        "radius_deg": 0.018,
+        "radius_deg": 0.12,
         "population": 31245,
     },
     {
         "id": "karol_bagh",
         "name": "Karol Bagh",
         "center": (28.6512, 77.1910),
-        "radius_deg": 0.015,
+        "radius_deg": 0.10,
         "population": 28400,
     },
     {
         "id": "rohini",
         "name": "Rohini",
         "center": (28.7434, 77.0676),
-        "radius_deg": 0.020,
+        "radius_deg": 0.12,
         "population": 35600,
     },
     {
         "id": "dwarka",
         "name": "Dwarka",
         "center": (28.5921, 77.0460),
-        "radius_deg": 0.018,
+        "radius_deg": 0.12,
         "population": 29800,
     },
     {
         "id": "mayur_vihar",
         "name": "Mayur Vihar",
         "center": (28.6090, 77.2950),
-        "radius_deg": 0.016,
+        "radius_deg": 0.10,
         "population": 26500,
     },
     {
         "id": "saket",
         "name": "Saket",
         "center": (28.5244, 77.2066),
-        "radius_deg": 0.015,
+        "radius_deg": 0.10,
         "population": 22100,
     },
     {
         "id": "najafgarh",
         "name": "Najafgarh",
         "center": (28.6092, 77.0360),
-        "radius_deg": 0.018,
+        "radius_deg": 0.10,
         "population": 18700,
     },
     {
@@ -148,6 +148,25 @@ COST_PER_M2 = {
 }
 
 DEFAULT_BUDGET_INR = 50_000_000  # 5 crore demo budget (50M INR)
+
+STUDY_DATE = "2024-05-22"
+
+# Delhi CPCB / reference stations for LST validation (approximate coordinates)
+CPCB_STATIONS = [
+    {"id": "ito", "name": "ITO (Central Delhi)", "lat": 28.6289, "lon": 77.2411, "zone": "urban_core"},
+    {"id": "anand_vihar", "name": "Anand Vihar", "lat": 28.6469, "lon": 77.3168, "zone": "east_delhi"},
+    {"id": "rk_puram", "name": "RK Puram", "lat": 28.5689, "lon": 77.1856, "zone": "south_delhi"},
+    {"id": "dwarka", "name": "Dwarka Sector 8", "lat": 28.5899, "lon": 77.0660, "zone": "west_delhi"},
+    {"id": "rohini", "name": "Rohini", "lat": 28.7490, "lon": 77.1070, "zone": "north_west"},
+    {"id": "narela", "name": "Narela (rural fringe)", "lat": 28.8260, "lon": 77.0930, "zone": "rural_reference"},
+    {"id": "punjabi_bag", "name": "Punjabi Bagh", "lat": 28.6680, "lon": 77.1350, "zone": "west_delhi"},
+]
+
+# Published Delhi UHI benchmarks (literature / CPCB urban heat studies)
+UHI_BENCHMARKS = {
+    "central_delhi_uhi_anomaly_c": {"min": 5.0, "max": 8.0, "source": "Delhi UHI studies (built-up core vs rural fringe)"},
+    "lst_minus_air_daytime_c": {"min": 8.0, "max": 18.0, "source": "Expected LST-air offset at Landsat overpass (~10:30 IST)"},
+}
 
 # Data source configurations
 DATA_SOURCES = {

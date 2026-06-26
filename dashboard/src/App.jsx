@@ -5,6 +5,7 @@ import InsightsPanel from './components/InsightsPanel.jsx';
 import StrategyChart from './components/StrategyChart.jsx';
 import MaterialTable from './components/MaterialTable.jsx';
 import PriorityTable from './components/PriorityTable.jsx';
+import ValidationPanel from './components/ValidationPanel.jsx';
 
 async function loadJson(path) {
   const response = await fetch(path);
@@ -32,6 +33,7 @@ export default function App() {
           materials,
           priority,
           scenarioAfter,
+          validation,
         ] = await Promise.all([
           loadJson('/data/metadata.json'),
           loadJson('/data/zones.geojson'),
@@ -41,6 +43,7 @@ export default function App() {
           loadJson('/data/materials.json'),
           loadJson('/data/priority_table.json'),
           loadJson('/data/scenario_after.json'),
+          loadJson('/data/validation.json').catch(() => null),
         ]);
 
         setData({
@@ -52,6 +55,7 @@ export default function App() {
           materials,
           priority,
           scenarioAfter,
+          validation,
         });
       } catch (err) {
         setError(err.message);
@@ -136,6 +140,7 @@ export default function App() {
         <MaterialTable materials={data.materials} />
         <PriorityTable priority={data.priority} />
       </div>
+      {data.validation && <ValidationPanel validation={data.validation} />}
     </>
   );
 
@@ -154,7 +159,11 @@ export default function App() {
   } else if (activeTab === 'materials') {
     content = <MaterialTable materials={data.materials} />;
   } else if (activeTab === 'analysis') {
-    content = renderSimple('Analysis', 'Driver attribution and SHAP outputs are generated in data/processed/drivers.json.');
+    content = data.validation ? (
+      <ValidationPanel validation={data.validation} />
+    ) : (
+      renderSimple('Analysis', 'Driver attribution and SHAP outputs are generated in data/processed/drivers.json.')
+    );
   } else if (activeTab === 'predictions') {
     content = renderSimple('Predictions', 'Spatial LST predictions come from the trained XGBoost model in data/processed/lst_model.joblib.');
   } else if (activeTab === 'optimization') {

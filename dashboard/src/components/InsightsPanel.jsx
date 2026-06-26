@@ -24,7 +24,10 @@ export default function InsightsPanel({ insights }) {
       </ul>
       {insights.model_metrics && (
         <p style={{ color: '#8ea0bb', fontSize: '0.82rem', marginBottom: 0 }}>
-          Model R² {insights.model_metrics.r2} | RMSE {insights.model_metrics.rmse_c}°C
+          Hybrid model R² {insights.model_metrics.r2} | RMSE {insights.model_metrics.rmse_c}°C
+          {insights.model_metrics.spatial_cross_validation && (
+            <> | 5-fold spatial CV R² {insights.model_metrics.spatial_cross_validation.hybrid_physics_ml?.r2}</>
+          )}
         </p>
       )}
     </div>

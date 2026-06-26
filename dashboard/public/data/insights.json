@@ -1,10 +1,10 @@
 {
   "title": "AIML Insights",
-  "drivers": "High surface temperatures in Delhi are primarily driven by low vegetation and built-up intensity across built-up cores.",
+  "drivers": "High surface temperatures in Delhi are primarily driven by distance from water and ghsl built-up density across built-up cores.",
   "priority_zones": [
     "Rohini",
-    "Central Delhi",
-    "Dwarka"
+    "Dwarka",
+    "Central Delhi"
   ],
   "impact_estimates": {
     "cool_pavements": "8-14 C surface reduction in dense markets",
@@ -12,9 +12,69 @@
   },
   "recommendation": "Deploy high albedo paint in Central Delhi and Karol Bagh first to capture up to 4.3 C average surface cooling.",
   "model_metrics": {
-    "r2": 1.0,
-    "rmse_c": 0.0,
-    "mae_c": 0.0,
-    "validation": "Spatial hold-out (north vs south Delhi)"
+    "r2": 0.261,
+    "rmse_c": 3.24,
+    "mae_c": 2.54,
+    "validation": "Spatial hold-out: train south Delhi, test north Delhi (ML-only model)",
+    "model_type": "XGBoost (physics model disabled for real satellite data)",
+    "target_variable": "Observed Landsat 8 LST",
+    "spatial_holdout": {
+      "split": "latitude median",
+      "train_cells": 19316,
+      "test_cells": 19154,
+      "ml_only": {
+        "r2": 0.261,
+        "rmse_c": 3.24,
+        "mae_c": 2.54
+      }
+    },
+    "spatial_cross_validation": {
+      "method": "5-fold spatial block CV (latitude bands)",
+      "target": "Observed Landsat 8 LST (ST_B10)",
+      "n_folds": 5,
+      "ml_only": {
+        "r2": 0.318,
+        "rmse_c": 3.31,
+        "mae_c": 2.58
+      },
+      "physics_only": {
+        "r2": -20.719,
+        "rmse_c": 18.72,
+        "mae_c": 18.22
+      },
+      "hybrid_physics_ml": {
+        "r2": -2.355,
+        "rmse_c": 7.28,
+        "mae_c": 6.52
+      },
+      "fold_details": [
+        {
+          "fold": 0,
+          "hybrid_r2": -1.668,
+          "hybrid_rmse_c": 7.25
+        },
+        {
+          "fold": 1,
+          "hybrid_r2": -1.067,
+          "hybrid_rmse_c": 6.91
+        },
+        {
+          "fold": 2,
+          "hybrid_r2": -3.156,
+          "hybrid_rmse_c": 7.97
+        },
+        {
+          "fold": 3,
+          "hybrid_r2": -2.015,
+          "hybrid_rmse_c": 6.92
+        },
+        {
+          "fold": 4,
+          "hybrid_r2": -3.871,
+          "hybrid_rmse_c": 7.36
+        }
+      ]
+    },
+    "note": "Metrics computed on real satellite LST. 5-fold spatial CV ML-only R\u00b2=0.318, RMSE=3.31\u00b0C. Physics model disabled as it was tuned on synthetic data."
   }
 }

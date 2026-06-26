@@ -12,7 +12,7 @@ import joblib
 import numpy as np
 import pandas as pd
 import shap
-from sklearn.metrics import mean_absolute_error, r2_score
+from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 from xgboost import XGBRegressor
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
@@ -79,14 +79,91 @@ def physics_lst(df: pd.DataFrame) -> np.ndarray:
     return lst
 
 
-def train_model(df: pd.DataFrame) -> tuple[XGBRegressor, dict]:
-    X = df[FEATURE_COLUMNS]
-    y = df["lst"]
+def _regression_metrics(y_true: np.ndarray, y_pred: np.ndarray) -> dict:
+    return {
+        "r2": round(float(r2_score(y_true, y_pred)), 3),
+        "rmse_c": round(float(np.sqrt(mean_squared_error(y_true, y_pred))), 2),
+        "mae_c": round(float(mean_absolute_error(y_true, y_pred)), 2),
+    }
 
-    # Spatial hold-out: north vs south Delhi
+
+def spatial_cross_validate(df: pd.DataFrame, n_folds: int = 5) -> dict:
+    """
+    Spatial block cross-validation by latitude bands.
+    Trains on observed Landsat LST (not physics-generated targets).
+    """
+    df = df.copy()
+    df["spatial_fold"] = pd.qcut(df["lat"], n_folds, labels=False, duplicates="drop")
+
+    ml_scores: list[dict] = []
+    hybrid_scores: list[dict] = []
+    physics_scores: list[dict] = []
+
+    for fold in sorted(df["spatial_fold"].unique()):
+        test_mask = df["spatial_fold"] == fold
+        train_df = df[~test_mask]
+        test_df = df[test_mask]
+
+        model = XGBRegressor(
+            n_estimators=350,
+            max_depth=6,
+            learning_rate=0.05,
+            subsample=0.9,
+            colsample_bytree=0.9,
+            random_state=42,
+        )
+        model.fit(train_df[FEATURE_COLUMNS], train_df["lst"])
+
+        y_true = test_df["lst"].values
+        ml_pred = model.predict(test_df[FEATURE_COLUMNS])
+        physics_pred = physics_lst(test_df)
+        hybrid_pred = 0.35 * physics_pred + 0.65 * ml_pred
+
+        ml_scores.append(_regression_metrics(y_true, ml_pred))
+        hybrid_scores.append(_regression_metrics(y_true, hybrid_pred))
+        physics_scores.append(_regression_metrics(y_true, physics_pred))
+
+    def _mean_metric(scores: list[dict], key: str) -> float:
+        return round(float(np.mean([s[key] for s in scores])), 3 if key == "r2" else 2)
+
+    return {
+        "method": f"{n_folds}-fold spatial block CV (latitude bands)",
+        "target": "Observed Landsat 8 LST (ST_B10)",
+        "n_folds": int(n_folds),
+        "ml_only": {
+            "r2": _mean_metric(ml_scores, "r2"),
+            "rmse_c": _mean_metric(ml_scores, "rmse_c"),
+            "mae_c": _mean_metric(ml_scores, "mae_c"),
+        },
+        "physics_only": {
+            "r2": _mean_metric(physics_scores, "r2"),
+            "rmse_c": _mean_metric(physics_scores, "rmse_c"),
+            "mae_c": _mean_metric(physics_scores, "mae_c"),
+        },
+        "hybrid_physics_ml": {
+            "r2": _mean_metric(hybrid_scores, "r2"),
+            "rmse_c": _mean_metric(hybrid_scores, "rmse_c"),
+            "mae_c": _mean_metric(hybrid_scores, "mae_c"),
+        },
+        "fold_details": [
+            {
+                "fold": int(i),
+                "hybrid_r2": hybrid_scores[i]["r2"],
+                "hybrid_rmse_c": hybrid_scores[i]["rmse_c"],
+            }
+            for i in range(len(hybrid_scores))
+        ],
+    }
+
+
+def train_model(df: pd.DataFrame) -> tuple[XGBRegressor, dict]:
+    cv_metrics = spatial_cross_validate(df, n_folds=5)
+
+    # Primary reported metrics: spatial hold-out (north vs south Delhi) on ML-only model
+    # Physics model disabled for real satellite data (tuned on synthetic data)
     train_mask = df["lat"] <= df["lat"].median()
-    X_train, X_test = X[train_mask], X[~train_mask]
-    y_train, y_test = y[train_mask], y[~train_mask]
+    train_df = df[train_mask]
+    holdout_df = df[~train_mask]
 
     model = XGBRegressor(
         n_estimators=350,
@@ -96,16 +173,35 @@ def train_model(df: pd.DataFrame) -> tuple[XGBRegressor, dict]:
         colsample_bytree=0.9,
         random_state=42,
     )
-    model.fit(X_train, y_train)
+    model.fit(train_df[FEATURE_COLUMNS], train_df["lst"])
 
-    pred = model.predict(X_test)
+    y_true = holdout_df["lst"].values
+    ml_pred = model.predict(holdout_df[FEATURE_COLUMNS])
+
+    holdout_ml = _regression_metrics(y_true, ml_pred)
+
     metrics = {
-        "r2": round(float(r2_score(y_test, pred)), 3),
-        "rmse_c": round(float(np.sqrt(np.mean((y_test - pred) ** 2))), 2),
-        "mae_c": round(float(mean_absolute_error(y_test, pred)), 2),
-        "validation": "Spatial hold-out (north vs south Delhi)",
+        **holdout_ml,
+        "validation": "Spatial hold-out: train south Delhi, test north Delhi (ML-only model)",
+        "model_type": "XGBoost (physics model disabled for real satellite data)",
+        "target_variable": "Observed Landsat 8 LST",
+        "spatial_holdout": {
+            "split": "latitude median",
+            "train_cells": int(train_mask.sum()),
+            "test_cells": int((~train_mask).sum()),
+            "ml_only": holdout_ml,
+        },
+        "spatial_cross_validation": cv_metrics,
+        "note": (
+            "Metrics computed on real satellite LST. "
+            f"5-fold spatial CV ML-only R²={cv_metrics['ml_only']['r2']}, "
+            f"RMSE={cv_metrics['ml_only']['rmse_c']}°C. "
+            "Physics model disabled as it was tuned on synthetic data."
+        ),
     }
 
+    # Retrain on full dataset for scenario simulation and deployment
+    model.fit(df[FEATURE_COLUMNS], df["lst"])
     return model, metrics
 
 
@@ -380,6 +476,11 @@ def main() -> None:
         write_json(DATA_DIR / name, payload)
 
     sync_dashboard(outputs)
+
+    validation_path = DATA_DIR / "validation.json"
+    if validation_path.exists():
+        validation = json.loads(validation_path.read_text(encoding="utf-8"))
+        write_json(DASHBOARD_DATA / "validation.json", validation)
 
     print("Model metrics:", metrics)
     print("Top scenario:", scenarios[0])

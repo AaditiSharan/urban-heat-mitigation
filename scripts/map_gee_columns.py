@@ -132,13 +132,12 @@ def map_gee_columns(input_path: Path, output_path: Path) -> None:
         df['cell_id'] = [f"{i}" for i in range(len(df))]
     
     # Add zone_id if missing (assign based on coordinates)
-    if 'zone_id' not in df.columns or df['zone_id'].eq('unassigned').all():
-        if 'lat' in df.columns and 'lon' in df.columns:
-            print("Assigning zones based on coordinates...")
-            df['zone_id'] = df.apply(lambda row: assign_zone(row['lat'], row['lon']), axis=1)
-            print(f"Zone distribution: {df['zone_id'].value_counts().to_dict()}")
-        else:
-            df['zone_id'] = 'unassigned'
+    if 'lat' in df.columns and 'lon' in df.columns:
+        print("Assigning zones based on coordinates...")
+        df['zone_id'] = df.apply(lambda row: assign_zone(row['lat'], row['lon']), axis=1)
+        print(f"Zone distribution: {df['zone_id'].value_counts().to_dict()}")
+    else:
+        df['zone_id'] = 'unassigned'
     
     # Add pop if missing
     if 'pop' not in df.columns:

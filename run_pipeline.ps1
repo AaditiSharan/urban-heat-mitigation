@@ -1,5 +1,9 @@
-Write-Host "Generating Delhi grid data..."
-python scripts/generate_delhi_data.py
+Write-Host "Fetching real Landsat 8 + Sentinel-2 satellite data..."
+python scripts/fetch_real_satellite_data.py
+if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+
+Write-Host "Validating LST against CPCB stations and UHI benchmarks..."
+python scripts/validate_lst.py
 if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 
 Write-Host "Training model and generating dashboard JSON..."

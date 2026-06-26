@@ -1,24 +1,24 @@
 {
   "global_drivers": [
     {
+      "feature": "Distance from water",
+      "contribution": 0.52
+    },
+    {
+      "feature": "GHSL built-up density",
+      "contribution": 0.329
+    },
+    {
       "feature": "Low vegetation",
-      "contribution": NaN
+      "contribution": 0.053
     },
     {
-      "feature": "Built-up intensity",
-      "contribution": NaN
+      "feature": "Population density",
+      "contribution": 0.033
     },
     {
-      "feature": "Impervious surfaces",
-      "contribution": NaN
-    },
-    {
-      "feature": "Low albedo surfaces",
-      "contribution": NaN
-    },
-    {
-      "feature": "Building density",
-      "contribution": NaN
+      "feature": "Air temperature",
+      "contribution": 0.023
     }
   ]
 }

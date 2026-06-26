@@ -1,7 +1,7 @@
 {
   "city": "Delhi NCT",
   "study_date": "2024-05-22",
-  "data_source": "Synthetic demo grid (replace with Landsat 8 / Sentinel-2 GEE export)",
+  "data_source": "Landsat 8 + Sentinel-2 via Microsoft Planetary Computer (2024-05-15 to 2024-05-30)",
   "bbox": {
     "min_lon": 76.83,
     "min_lat": 28.4,
@@ -9,5 +9,11 @@
     "max_lat": 28.88
   },
   "grid_resolution_m": 250,
-  "cell_count": 49648
+  "cell_count": 38470,
+  "satellite_layers": {
+    "lst": "Landsat 8 Collection 2 L2 (ST_B10)",
+    "ndvi": "Sentinel-2 (B8/B4) with Landsat 8 fallback",
+    "ndbi": "Sentinel-2 (B11/B8) with Landsat 8 fallback"
+  },
+  "study_window_days": 7
 }

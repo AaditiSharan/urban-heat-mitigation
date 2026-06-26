@@ -2,7 +2,7 @@
   "central_delhi": {
     "name": "Central Delhi",
     "low_albedo": 0.0,
-    "low_vegetation": 0.0,
+    "low_vegetation": 0.03,
     "high_impervious": 0.0,
     "built_up_intensity": 0.0,
     "urban_canyon_effect": 0.0,
@@ -11,7 +11,7 @@
   "karol_bagh": {
     "name": "Karol Bagh",
     "low_albedo": 0.0,
-    "low_vegetation": 0.0,
+    "low_vegetation": 0.02,
     "high_impervious": 0.0,
     "built_up_intensity": 0.0,
     "urban_canyon_effect": 0.0,
@@ -20,7 +20,7 @@
   "rohini": {
     "name": "Rohini",
     "low_albedo": 0.0,
-    "low_vegetation": 0.0,
+    "low_vegetation": 0.07,
     "high_impervious": 0.0,
     "built_up_intensity": 0.0,
     "urban_canyon_effect": 0.0,
@@ -29,7 +29,7 @@
   "dwarka": {
     "name": "Dwarka",
     "low_albedo": 0.0,
-    "low_vegetation": 0.0,
+    "low_vegetation": 0.03,
     "high_impervious": 0.0,
     "built_up_intensity": 0.0,
     "urban_canyon_effect": 0.0,
@@ -38,7 +38,7 @@
   "mayur_vihar": {
     "name": "Mayur Vihar",
     "low_albedo": 0.0,
-    "low_vegetation": 0.0,
+    "low_vegetation": 0.02,
     "high_impervious": 0.0,
     "built_up_intensity": 0.0,
     "urban_canyon_effect": 0.0,
@@ -47,7 +47,7 @@
   "saket": {
     "name": "Saket",
     "low_albedo": 0.0,
-    "low_vegetation": 0.0,
+    "low_vegetation": 0.03,
     "high_impervious": 0.0,
     "built_up_intensity": 0.0,
     "urban_canyon_effect": 0.0,
@@ -56,16 +56,7 @@
   "najafgarh": {
     "name": "Najafgarh",
     "low_albedo": 0.0,
-    "low_vegetation": 0.0,
-    "high_impervious": 0.0,
-    "built_up_intensity": 0.0,
-    "urban_canyon_effect": 0.0,
-    "thermal_mass": 0.0
-  },
-  "yamuna_fringe": {
-    "name": "Yamuna Fringe",
-    "low_albedo": 0.0,
-    "low_vegetation": 0.0,
+    "low_vegetation": 0.03,
     "high_impervious": 0.0,
     "built_up_intensity": 0.0,
     "urban_canyon_effect": 0.0,

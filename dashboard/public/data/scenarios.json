@@ -12,21 +12,21 @@
     "max_delta_t": 3.1
   },
   {
+    "strategy_id": "green_roofs",
+    "strategy": "Green Roofs",
+    "delta_t": 3.0,
+    "max_delta_t": 4.7
+  },
+  {
     "strategy_id": "cool_pavements",
     "strategy": "Cool Pavements",
     "delta_t": 2.6,
     "max_delta_t": 2.6
   },
   {
-    "strategy_id": "green_roofs",
-    "strategy": "Green Roofs",
-    "delta_t": 1.9,
-    "max_delta_t": 1.9
-  },
-  {
     "strategy_id": "urban_greening",
     "strategy": "Urban Greening",
-    "delta_t": 1.4,
-    "max_delta_t": 1.4
+    "delta_t": 2.6,
+    "max_delta_t": 4.3
   }
 ]
